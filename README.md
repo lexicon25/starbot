@@ -5,9 +5,9 @@ Currently supported commands:
 - /ping
 - /message
 - /rating
+- /bean
 
 In-Progress commands:
-- /bean
 - /help
 - /trueladder
 - /dynamic

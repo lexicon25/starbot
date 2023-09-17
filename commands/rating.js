@@ -141,7 +141,6 @@ module.exports = {
                 ephemeral: true
             })
 
-            console.log('helo')
             console.log(str);
 
             await helper.sleep(2500);
