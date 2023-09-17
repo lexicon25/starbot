@@ -37,7 +37,7 @@ const activateButton = async(originalInt, newInt, row, embed, cmdFunction, ...ar
         results = await cmdFunction(args);
         embed = results[0];
 
-        await newInt.update({ embeds: [embed], components: [row] })
+        await originalInt.editReply({ embeds: [embed], components: [row] })
             .then(() => {
                 console.log(`Button pressed.`)
             })
