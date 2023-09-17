@@ -6,10 +6,10 @@
  */
 
 // requires
-import { readdirSync } from 'node:fs';
-import { join } from 'node:path';
+const fs = require('node:fs');
+const path = require('node:path');
 require('dotenv').config();
-import { Client, GatewayIntentBits, Collection } from 'discord.js';
+const { Client, GatewayIntentBits, Collection } = require('discord.js');
 
 const client = new Client({
     intents: [
@@ -23,10 +23,10 @@ client.commands = new Collection();
 // runFiles (string, function) => void
 // sets up files according to the setupFile function and the directory where files are
 function runFiles(dirpath, setupFile) {
-    const files = readdirSync(dirpath).filter(file => file.endsWith('.js'));
+    const files = fs.readdirSync(dirpath).filter(file => file.endsWith('.js'));
 
     for (const file of files) {
-        const filepath = join(dirpath, file);
+        const filepath = path.join(dirpath, file);
         const type = require(filepath);
 
         setupFile(type, filepath);
@@ -53,8 +53,8 @@ function setupEvent(event) {
     }
 }
 
-const commandsPath = join(__dirname, 'commands');
-const eventsPath = join(__dirname, 'events');
+const commandsPath = path.join(__dirname, 'commands');
+const eventsPath = path.join(__dirname, 'events');
 
 runFiles(commandsPath, setupCommand);
 runFiles(eventsPath, setupEvent);
