@@ -1,0 +1,19 @@
+{
+  "name": "starbot",
+  "version": "1.0.0",
+  "description": "A new discord bot for the GDDL",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "starbot"
+  },
+  "author": "Lexicon25",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^14.13.0",
+    "dotenv": "^16.3.1"
+  }
+}
