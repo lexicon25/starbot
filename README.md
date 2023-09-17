@@ -6,6 +6,7 @@ Currently supported commands:
 - /message
 - /rating
 - /bean
+- /need
 
 In-Progress commands:
 - /help
