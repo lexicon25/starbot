@@ -5,7 +5,22 @@
  * useful helper functions/variables specifically for commands.
  */
 
-const { ComponentType } = require("discord.js");
+const { ComponentType, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require("discord.js");
+
+// prevNextButtons (number) => ActionRowBuilder
+// makes a row of buttons "previous and next".
+function prevNextButtons(pmax) {
+    const row = new ActionRowBuilder().addComponents(
+        new ButtonBuilder().setCustomId('prev').setLabel('Previous').setStyle(ButtonStyle.Secondary),
+        new ButtonBuilder().setCustomId('next').setLabel('Next').setStyle(ButtonStyle.Primary),
+    );
+    if (pmax == 1) {
+        row.components[0].setDisabled(true);
+        row.components[1].setDisabled(true);
+    }
+
+    return row;
+}
 
 // createButtonCollector (interaction) => MessageComponentCollctor
 // makes a button collector that lasts for WAIT_TIME.
@@ -26,7 +41,7 @@ const createButtonCollector = async(interaction) => {
     }
 }
 
-// activateButton (interaction, interaction, ActionRow, Embed, function, args) => void
+// activateButton (interaction, interaction, ActionRow, Embed, function, args) => any
 // performs a command function if a button is pressed by the user that sent the command
 const activateButton = async(originalInt, newInt, row, embed, cmdFunction, ...args) => {
     message = await originalInt.fetchReply();
@@ -34,7 +49,7 @@ const activateButton = async(originalInt, newInt, row, embed, cmdFunction, ...ar
     var SAME_USER_ID = originalInt.user.id === newInt.user.id;
 
     if (SAME_MESSAGE && SAME_USER_ID) {
-        results = await cmdFunction(args);
+        results = await cmdFunction(args.concat(newInt));
         embed = results[0];
 
         await originalInt.editReply({ embeds: [embed], components: [row] })
@@ -42,6 +57,8 @@ const activateButton = async(originalInt, newInt, row, embed, cmdFunction, ...ar
                 console.log(`Button pressed.`)
             })
             .catch(console.error);
+
+        return results;
     }
 }
 
@@ -61,6 +78,7 @@ function expireButton(originalInt, row, embed) {
 }
 
 module.exports = {
+    prevNextButtons: prevNextButtons,
     createButtonCollector: createButtonCollector,
     activateButton: activateButton,
     expireButton: expireButton,

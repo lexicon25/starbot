@@ -12,7 +12,6 @@ In-Progress commands:
 - /help
 - /trueladder
 - /dynamic
-- /need
 - /level
 - /user
 - /rank

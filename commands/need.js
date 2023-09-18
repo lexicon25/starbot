@@ -124,9 +124,7 @@ const needQuery = async(tier, amount, enjoy, relation, igd) => {
     }
 }
 
-// title, tier, amount, enjoy, relation, igd
-
-// needCommand (string, integer, integer, integer, string, integer) => array
+// needCommand (array) => array
 // creates a new /need embed.
 const needCommand = async(arr) => {
     // arr: [title, tier, amount, enjoy, relation, igd]
@@ -327,6 +325,7 @@ module.exports = {
                 .setLabel('Re-roll')
                 .setStyle(ButtonStyle.Primary),
         );
+        // disable button if not enough demons or no demons
         if (results[1] || results[2]) {
             row.components[0].setDisabled(true);
         }
