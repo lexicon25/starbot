@@ -7,12 +7,12 @@ Currently supported commands:
 - /rating
 - /bean
 - /need
+- /level
 
 In-Progress commands:
 - /help
 - /trueladder
 - /dynamic
-- /level
 - /user
 - /rank
 - /score

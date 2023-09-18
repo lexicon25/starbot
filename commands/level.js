@@ -166,7 +166,7 @@ const levelCommand = async (arr) => {
 
     var curPage = arr[5];
     if (arr[7] != null) {
-        if (arr[7].customid == 'next') {
+        if (arr[7].customId == 'next') {
             curPage = (curPage+1) % arr[6] || arr[6];
         } else {
             curPage = (curPage-1) % arr[6] || arr[6];
@@ -311,7 +311,8 @@ module.exports = {
             .catch(console.error);
         var collector = await commandHelper.createButtonCollector(interaction);
         collector.on('collect', async (i) => {
-            await commandHelper.activateButton(interaction, i, row, needEmbed, levelCommand, id, search, creator, queryResults, levelInfo, curPage, maxPage, newInt);
+            results = await commandHelper.activateButton(interaction, i, row, levelEmbed, levelCommand, id, search, creator, queryResults, levelInfo, curPage, maxPage, i);
+            curPage = results[1];
         })
         collector.on('end', () => {
             commandHelper.expireButton(interaction, row, levelEmbed);
