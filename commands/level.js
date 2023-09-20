@@ -313,9 +313,9 @@ module.exports = {
         collector.on('collect', async (i) => {
             results = await commandHelper.activateButton(interaction, i, row, levelEmbed, levelCommand, id, search, creator, queryResults, levelInfo, curPage, maxPage, i);
             curPage = results[1];
-        })
+        });
         collector.on('end', () => {
             commandHelper.expireButton(interaction, row, levelEmbed);
-        })
+        });
     }
 }
