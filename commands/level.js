@@ -12,19 +12,6 @@ const helper = require('./../helper.js');
 const commandHelper = require('./../cmdhelper.js');
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 
-// IDQuery (integer) => array
-// gets a demon based on its ID.
-const IDQuery = async(id) => {
-    var url = `https://gdladder.com/api/level?levelID=${id}`;
-    try {
-        const query = await axios.get(url);
-
-        return query['data'];
-    } catch (error) {
-        return "error";
-    }
-}
-
 // searchQuery (string, string, integer) => array
 // searches for levels based on search parameter / creator name
 const searchQuery = async(search, creator, page) => {
@@ -269,7 +256,7 @@ module.exports = {
         }
 
         if (id != null) {
-            levelInfo = await IDQuery(id);
+            levelInfo = await helper.IDQuery(id);
 
             if (levelInfo == "error") {
                 levelEmbed.setTitle(`**There is no demon with the ID ${id}!**`);

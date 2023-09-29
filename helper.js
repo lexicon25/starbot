@@ -125,6 +125,19 @@ function arrayRandom(arr) {
     return arr[Math.floor(Math.random() * arr.length)];
 }
 
+// IDQuery (integer) => array
+// gets a demon based on its ID.
+const IDQuery = async(id) => {
+    var url = `https://gdladder.com/api/level?levelID=${id}`;
+    try {
+        const query = await axios.get(url);
+
+        return query['data'];
+    } catch (error) {
+        return "error";
+    }
+}
+
 module.exports = {
     diffHex: diffHex,
     diffEmotes: diffEmotes,
@@ -134,4 +147,5 @@ module.exports = {
     sleep: sleep,
     isValidURL: isValidURL,
     arrayRandom: arrayRandom,
+    IDQuery: IDQuery,
 }

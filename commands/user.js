@@ -8,6 +8,7 @@
 
 // requires
 const axios = require('axios');
+const helper = require('./../helper.js');
 const commandHelper = require('./../cmdhelper.js');
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 
@@ -15,19 +16,6 @@ const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 // searches for user ids based on a user search parameter
 const usearchQuery = async(username) => {
     var url = `https://gdladder.com/api/user/search?chunk=10&name=${username}`;
-    try {
-        const query = await axios.get(url);
-
-        return query['data'];
-    } catch (error) {
-        console.error(error);
-    }
-}
-
-// IDQuery (string) => array
-// gets level info based on level ID
-const IDQuery = async (id) => {
-    var url = `https://gdladder.com/api/level?levelID=${id}`;
     try {
         const query = await axios.get(url);
 
@@ -239,7 +227,7 @@ module.exports = {
             }
 
             if (level_id != null) {
-                var query = await IDQuery(level_id);
+                var query = await helper.IDQuery(level_id);
                 queryResults = query;
                 mode = 2;
             } else {
