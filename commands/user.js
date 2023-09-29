@@ -24,6 +24,19 @@ const usearchQuery = async(username) => {
     }
 }
 
+// IDQuery (string) => array
+// gets level info based on level ID
+const IDQuery = async (id) => {
+    var url = `https://gdladder.com/api/level?levelID=${id}`;
+    try {
+        const query = await axios.get(url);
+
+        return query['data'];
+    } catch (error) {
+        console.error(error);
+    }
+}
+
 // levelQuery (string) => array
 // searches for levels based on a level search parameter
 const levelQuery = async (search) => {
@@ -94,7 +107,7 @@ const userCommand = async (arr) => {
         }
         userEmbed.setTitle(title);
 
-        var query = await ratingQuery(arr[1]['user-id'], curPage, arr[3], search, null);
+        var query = await ratingQuery(arr[1]['user-id'], curPage, arr[3], arr[4], null);
 
         var str = '';
         for (elem of query['levels']) {
@@ -127,8 +140,8 @@ const userCommand = async (arr) => {
         var rquery = await ratingQuery(arr[1]['user-id'], 1, null, arr[0]['Name'], arr[0]['Creator']);
         rquery = rquery['levels'][0];
         userEmbed.addFields(
-            { name: `Your Rating Details`, value: `Tier ${rquery['Rating']}\nEnjoyment ${rquery['Enjoyment']}\nDone on ${rquery['RefreshRate']}hz ${rquery['Device']}` },
-            { name: `Ladder Rating Details`, value: `Tier ${(Math.round(arr[0]['Rating'] * 100) / 100).toString()}\nEnjoyment ${Math.round((arr[0]['Enjoyment'] * 100) / 100).toString()}` }
+            { name: `Your Rating Details`, value: `Tier ${rquery['Rating']}\nEnjoyment ${rquery['Enjoyment']}\nDone on ${rquery['RefreshRate']}hz ${rquery['Device']}`, inline: true },
+            { name: `Ladder Rating Details`, value: `Tier ${(Math.round(arr[0]['Rating'] * 100) / 100).toString()}\nEnjoyment ${(Math.round(arr[0]['Enjoyment'] * 100) / 100).toString()}`, inline: true }
         );
     }
 
@@ -207,24 +220,27 @@ module.exports = {
             var uquery = await userQuery(user_id);
             userInfo['username'] = uquery['Name'];
             userInfo['user-id'] = user_id;
-            if (tier == null) {
+            if (tier == null || search == null) {
                 userInfo['avg-enj'] = uquery['AverageEnjoyment'];
             }
 
             if (level_id == null && search != null) {
                 var lquery = await levelQuery(search);
+                lquery = lquery['levels'];
 
                 if (lquery == null || lquery.length < 1) {
                     await interaction.editReply(`No level matching the name ${search}!`);
                     return;
                 } else if (lquery.length == 1) {
                     level_id = lquery[0]['LevelID'];
-                } else if (lquery[0]['Name'].toLowerCase() == search.toLowerCase() && query[1]['Name'].toLowerCase() != search.toLowerCase()) {
+                } else if (lquery[0]['Name'].toLowerCase() == search.toLowerCase() && lquery[1]['Name'].toLowerCase() != search.toLowerCase()) {
                     level_id = lquery[0]['LevelID'];
                 }
             }
 
             if (level_id != null) {
+                var query = await IDQuery(level_id);
+                queryResults = query;
                 mode = 2;
             } else {
                 var query = await ratingQuery(user_id, page, tier, search, null);
@@ -252,7 +268,7 @@ module.exports = {
             .catch(console.error);
         var collector = await commandHelper.createButtonCollector(interaction);
         collector.on('collect', async (i) => {
-            results = await commandHelper.activateButton(interaction, i, row, userEmbed, userCommand, queryResults, userInfo, mode, tier, curPage, maxPage, i);
+            results = await commandHelper.activateButton(interaction, i, row, userEmbed, userCommand, queryResults, userInfo, mode, tier, search, curPage, maxPage, i);
             curPage = results[1];
         });
         collector.on('end', () => {
