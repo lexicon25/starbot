@@ -56,4 +56,4 @@ module.exports = {
 
         await interaction.reply(`<:yes_tick:744780635641610240> ${user.username} was beaned. Reason: ${reason}`);
     }
-}
+};

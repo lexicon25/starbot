@@ -8,11 +8,11 @@ Currently supported commands:
 - /bean
 - /need
 - /level
+- /dynamic
+- /user
 
 In-Progress commands:
 - /help
 - /trueladder
-- /dynamic
-- /user
 - /rank
 - /score

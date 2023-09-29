@@ -16,7 +16,7 @@ const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 const dynamicQuery = async(tier, page) => {
     var url = `https://gdladder.com/api/level/search?chunk=50&page=${page}&exactName=false`;
     url += `&removeUnrated=true&removeUnratedEnj=false&removeRated=false&removeRatedEnj=false`;
-    url += `&sort=level-id&sortDirection=asc&lowTier=${tier-0.5}&highTier=${tier+0.499}`;
+    url += `&sort=level-id&sortDirection=asc&lowTier=${tier}&highTier=${tier}`;
     try {
         const query = await axios.get(url);
 
@@ -121,6 +121,6 @@ module.exports = {
         });
         collector.on('end', () => {
             commandHelper.expireButton(interaction, row, dynamicEmbed);
-        })
+        });
     }
 }
