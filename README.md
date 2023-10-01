@@ -10,9 +10,9 @@ Currently supported commands:
 - /level
 - /dynamic
 - /user
+- /trueladder
 
 In-Progress commands:
 - /help
-- /trueladder
 - /rank
 - /score

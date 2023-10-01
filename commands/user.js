@@ -208,7 +208,7 @@ module.exports = {
             var uquery = await userQuery(user_id);
             userInfo['username'] = uquery['Name'];
             userInfo['user-id'] = user_id;
-            if (tier == null || search == null) {
+            if (tier == null && search == null) {
                 userInfo['avg-enj'] = uquery['AverageEnjoyment'];
             }
 

@@ -12,7 +12,7 @@ const commandHelper = require('./../cmdhelper.js');
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 
 // dynamicQuery (integer, integer) => array
-// gets dynamic pack levels (unfiltered down yet)
+// gets dynamic pack levels (unfiltered)
 const dynamicQuery = async(tier, page) => {
     var url = `https://gdladder.com/api/level/search?chunk=50&page=${page}&exactName=false`;
     url += `&removeUnrated=true&removeUnratedEnj=false&removeRated=false&removeRatedEnj=false`;
