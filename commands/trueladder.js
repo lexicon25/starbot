@@ -26,9 +26,11 @@ const ladderQuery = async(tier, page) => {
     } else {
         url += `removeUnrated=false&removeRated=true`;
     }
-    url += `&exactName=false&removeUnratedEnj=false&removeRatedEnj=false&sort=level-id&sortDirection=asc`;
+    url += `&removeUnratedEnj=false&removeRatedEnj=false&sort=level-id&sortDirection=asc`;
     try {
         const query = await axios.get(url);
+
+        console.log('doing query');
 
         return query['data'];
     } catch (error) {
@@ -135,7 +137,7 @@ module.exports = {
 
         // filter down levels from current list
         var curPage = 1;
-        var query = ladderQuery(tier, 1);
+        var query = await ladderQuery(tier, 1);
         var maxPage = Math.ceil(query['total'] / 50);
         var ladderLevels = query['levels'];
 
