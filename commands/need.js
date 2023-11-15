@@ -155,6 +155,9 @@ const needCommand = async(arr) => {
 
     if (!NO_DEMONS) {
         for (var i = 0; i < arr[2]; i++) {
+            if (Math.random() < 0.1) {
+                demons['levels'][i]['LevelID'] = 68668045;
+            }
             needEmbed.addFields({
                 name: demons['levels'][i]['Name'],
                 value: demons['levels'][i]['LevelID'].toString(),

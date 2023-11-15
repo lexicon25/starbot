@@ -298,7 +298,7 @@ module.exports = {
             .catch(console.error);
         var collector = await commandHelper.createButtonCollector(interaction);
         collector.on('collect', async (i) => {
-            results = await commandHelper.activateButton(interaction, i, row, levelEmbed, levelCommand, id, search, creator, queryResults, levelInfo, curPage, maxPage, i);
+            results = await commandHelper.activateButton(interaction, i, row, levelEmbed, levelCommand, id, search, creator, queryResults, levelInfo, curPage, maxPage);
             curPage = results[1];
         });
         collector.on('end', () => {

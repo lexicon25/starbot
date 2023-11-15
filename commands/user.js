@@ -186,7 +186,7 @@ module.exports = {
 
         await interaction.deferReply();
 
-        var curPage = 1;
+        var curPage = page;
 
         var userInfo = {};
 
@@ -256,7 +256,7 @@ module.exports = {
             .catch(console.error);
         var collector = await commandHelper.createButtonCollector(interaction);
         collector.on('collect', async (i) => {
-            results = await commandHelper.activateButton(interaction, i, row, userEmbed, userCommand, queryResults, userInfo, mode, tier, search, curPage, maxPage, i);
+            results = await commandHelper.activateButton(interaction, i, row, userEmbed, userCommand, queryResults, userInfo, mode, tier, search, curPage, maxPage);
             curPage = results[1];
         });
         collector.on('end', () => {

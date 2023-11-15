@@ -58,8 +58,14 @@ const activateButton = async(originalInt, newInt, row, embed, cmdFunction, ...ar
             })
             .catch(console.error);
 
+        console.log("in here, returning results");
+
         return results;
     }
+    console.log(SAME_MESSAGE);
+    console.log(message['id']);
+    console.log(newInt.message['id']);
+    console.log('not in here, returning nothing ig');
 }
 
 // expireButton (ActionRow, Embed) => void

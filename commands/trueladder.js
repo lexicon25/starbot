@@ -179,7 +179,7 @@ module.exports = {
             .catch(console.error);
         var collector = await commandHelper.createButtonCollector(interaction);
         collector.on('collect', async (i) => {
-            results = await commandHelper.activateButton(interaction, i, row, trueEmbed, trueLadderCommand, trueLevels, tier, shape, curPage, maxPage, i);
+            results = await commandHelper.activateButton(interaction, i, row, trueEmbed, trueLadderCommand, trueLevels, tier, shape, curPage, maxPage);
             curPage = results[1];
         });
         collector.on('end', () => {

@@ -116,7 +116,7 @@ module.exports = {
             .catch(console.error);
         var collector = await commandHelper.createButtonCollector(interaction);
         collector.on('collect', async (i) => {
-            results = await commandHelper.activateButton(interaction, i, row, dynamicEmbed, dynamicCommand, queryResults, tier, num, curPage, maxPage, i);
+            results = await commandHelper.activateButton(interaction, i, row, dynamicEmbed, dynamicCommand, queryResults, tier, num, curPage, maxPage);
             curPage = results[1];
         });
         collector.on('end', () => {
