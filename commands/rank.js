@@ -197,6 +197,7 @@ module.exports = {
         var collector = await commandHelper.createButtonCollector(interaction);
         collector.on('collect', async (i) => {
             results = await commandHelper.activateButton(interaction, i, row, gradeEmbed, gradeCommand, queryResults, username, mode, curPage, maxPage);
+            gradeEmbed = results[0];
             curPage = results[1];
         });
         collector.on('end', () => {

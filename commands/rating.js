@@ -25,6 +25,19 @@ function getError(no_rating, ambiguous) {
     }
 }
 
+// levelQuery (id) => array
+// gives level information based on id
+const levelQuery = async (id) => {
+    var url = `https://gdladder.com/api/level?levelID=${id}`;
+    try {
+        const query = await axios.get(url);
+
+        return query['data'];
+    } catch (error) {
+        console.error(error);
+    }
+}
+
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('rating')
@@ -86,6 +99,13 @@ module.exports = {
         const NO_RATING = (difficulty == none) && (enjoyment == none);
         const AMBIGUOUS = (id == none) && (creator == none);
         var REJECT = false;
+
+        if (id != none) {
+            var lq = await levelQuery(id);
+            if (lq[0]['Length'] == 6) {
+                REJECT = true;
+            }
+        }
 
         if (NO_RATING || AMBIGUOUS) {
             REJECT = true;
